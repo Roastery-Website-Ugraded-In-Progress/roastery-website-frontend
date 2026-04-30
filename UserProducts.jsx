@@ -11,7 +11,7 @@ function UserProducts({ email, nameOfTheUser }) {
     const fetchProducts = async () => {
       try {
         const res = await fetch(
-          `https://roastery-website-backend-2.onrender.com/api/userProducts?email=${email}`,
+          `https://roastery-website-upgraded-in-progress.onrender.com/api/userProducts?email=${email}`,
           {
             credentials: "include",
           }
