@@ -78,7 +78,7 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
             {products.map((product) => (
               <Category
                 key={product.Product_id}
-                image={product.image}
+                image={product.Image}
                 title={product.Product_name}
                 name_of_the_category={title}
               />
