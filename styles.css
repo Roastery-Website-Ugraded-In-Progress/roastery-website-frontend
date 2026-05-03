@@ -14,8 +14,9 @@
 }
 .headerRow {
   display: flex;
-  justify-content: space-between; /* pushes them apart */
-  align-items: center; /* vertically aligns them */
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
 }
 .header-content {
   background-color: #1b0b07;
