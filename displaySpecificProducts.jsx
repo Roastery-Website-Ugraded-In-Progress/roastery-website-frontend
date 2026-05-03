@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Category from "./Category";
 import Header from "./Header";
 
@@ -8,6 +8,7 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,7 +50,9 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
       <div className="displayProducts">
         <div className="headerRow">
         <h1 className="Products">{title}</h1>
-        <button>Add a Product</button>
+        <button onClick={() => navigate("/add-product")}>
+              Add a Product
+            </button>
         </div>
         {loading && <p>Loading {title}...</p>}
 
