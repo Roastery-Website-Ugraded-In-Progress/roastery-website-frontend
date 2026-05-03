@@ -35,7 +35,6 @@ function App() {
               />
             }
           />
-          <Route path="/add-product" element={<AddProduct />} />
           <Route
             path="/sign_up"
             element={
