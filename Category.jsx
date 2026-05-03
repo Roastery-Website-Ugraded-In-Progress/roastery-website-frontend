@@ -12,7 +12,6 @@ function Category(props) {
     props.title.startsWith("Seeds") ||
     props.title.startsWith("Dried");
 
-  // ✅ Decide the link once
   let linkPath = "/";
 
   if (props.title === "") {
@@ -29,7 +28,6 @@ function Category(props) {
       onClick={props.onClick}
       style={{ cursor: "pointer" }}
     >
-      {/* ✅ Single Link + Image */}
       <Link to={linkPath}>
         <img
           src={props.image}
@@ -38,7 +36,6 @@ function Category(props) {
         />
       </Link>
 
-      {/* ✅ Admin button (independent of category logic) */}
       {props.nameOfTheUser === "HassanAtouiAdmin" && (
         <button
           onClick={(e) => {
