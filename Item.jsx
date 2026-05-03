@@ -154,7 +154,7 @@ function Item({ isValid2, nameOfTheUser, email2 }) {
           </p>
           <p>
             <b>Description: </b>
-            {product.description}
+            {product.Description}
           </p>
           <p>
             {totalWeight} kg of {title}.. Price: {totalPrice} $
