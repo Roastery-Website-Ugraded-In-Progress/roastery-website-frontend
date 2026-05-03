@@ -12,7 +12,11 @@
   font-size: 25px;
   cursor: pointer;
 }
-
+.headerRow {
+  display: flex;
+  justify-content: space-between; /* pushes them apart */
+  align-items: center; /* vertically aligns them */
+}
 .header-content {
   background-color: #1b0b07;
   color: white;
