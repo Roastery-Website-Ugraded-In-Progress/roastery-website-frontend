@@ -12,60 +12,44 @@ function Category(props) {
     props.title.startsWith("Seeds") ||
     props.title.startsWith("Dried");
 
+  // ✅ Decide the link once
+  let linkPath = "/";
+
+  if (props.title === "") {
+    linkPath = "/";
+  } else if (matchesCategory) {
+    linkPath = `/displaySpecificProducts/${props.title}`;
+  } else {
+    linkPath = `/item/${props.name_of_the_category}/${props.title}`;
+  }
+
   return (
     <div
       className="Category"
       onClick={props.onClick}
       style={{ cursor: "pointer" }}
     >
-      {!matchesCategory && props.title === "" && (
-        <Link to={`/`}>
-          <img
-            src={props.image}
-            alt={props.title}
-            style={{ width: "270px", height: "200px", objectFit: "cover" }}
-          />
-        </Link>
-      )}
+      {/* ✅ Single Link + Image */}
+      <Link to={linkPath}>
+        <img
+          src={props.image}
+          alt={props.title}
+          style={{ width: "270px", height: "200px", objectFit: "cover" }}
+        />
+      </Link>
 
-      {matchesCategory && props.title !== "" && (
-      <>
-        <Link to={`/displaySpecificProducts/${props.title}`}>
-          <img
-            src={props.image}
-            alt={props.title}
-            style={{ width: "270px", height: "200px", objectFit: "cover" }}
-          />
-        </Link>
-    
-        {props.nameOfTheUser === "HassanAtouiAdmin" && (
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              props.onRemove && props.onRemove(props.title);
-            }}
-            style={{ marginTop: "10px", cursor: "pointer" }}
-          >
-            Remove
-          </button>
-        )}
-      </>
-    )}
-
-      {!matchesCategory && props.title !== "" && (
-        <>
-          <Link to={`/item/${props.name_of_the_category}/${props.title}`}>
-            <img
-              src={props.image}
-              alt={props.title}
-              style={{ width: "270px", height: "200px", objectFit: "cover" }}
-            />
-          </Link>
-      
-          
-        </>
+      {/* ✅ Admin button (independent of category logic) */}
+      {props.nameOfTheUser === "HassanAtouiAdmin" && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            props.onRemove && props.onRemove(props.title);
+          }}
+          style={{ marginTop: "10px", cursor: "pointer" }}
+        >
+          Remove
+        </button>
       )}
-      
 
       <p>{props.title}</p>
     </div>
