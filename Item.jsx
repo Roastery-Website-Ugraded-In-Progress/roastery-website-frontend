@@ -53,7 +53,7 @@ function Item({ isValid2, nameOfTheUser, email2 }) {
           {product.image ? (
             <img
               className="itemSizeOfImage"
-              src={product.image}
+              src={product.Image}
               alt={title}
               style={{ width: "400px", height: "auto" }}
             />
