@@ -50,7 +50,7 @@ function Item({ isValid2, nameOfTheUser, email2 }) {
 
       <div className="item">
         <div className="bigImageInsideItem">
-          {product.image ? (
+          {product.Image ? (
             <img
               className="itemSizeOfImage"
               src={product.Image}
