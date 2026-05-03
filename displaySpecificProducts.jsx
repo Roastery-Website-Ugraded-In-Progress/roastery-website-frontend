@@ -48,6 +48,7 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
       <Header isValid2={isValid2} nameOfTheUser={nameOfTheUser} />
       <div className="displayProducts">
         <h1 className="Products">{title}</h1>
+        <Link>Add a Products</Link>
 
         {loading && <p>Loading {title}...</p>}
 
