@@ -88,6 +88,7 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
                 image={product.Image}
                 title={product.Product_name}
                 name_of_the_category={title}
+                nameOfTheUser={nameOfTheUser}
               />
             ))}
           </div>
