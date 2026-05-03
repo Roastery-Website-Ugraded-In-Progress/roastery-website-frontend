@@ -87,6 +87,7 @@ function App() {
               )
             }
           />
+          <Route path="/add-product" element={<AddProduct />} />
         </Routes>
       </div>
     </Router>
