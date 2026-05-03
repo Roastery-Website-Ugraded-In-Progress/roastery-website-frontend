@@ -13,6 +13,7 @@ import SignIn from "./SignIn";
 import DisplaySpecificProducts from "./displaySpecificProducts";
 import Item from "./Item";
 import UserProducts from "./UserProducts";
+import AddProduct from "./AddProduct";
 
 function App() {
   const [isValid, setIsValid] = useState(false);
