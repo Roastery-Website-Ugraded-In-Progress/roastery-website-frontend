@@ -46,6 +46,17 @@ function Category(props) {
             style={{ width: "270px", height: "200px", objectFit: "cover" }}
           />
         </Link>
+          {props.nameOfTheUser === "HassanAtouiAdmin" && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation(); // prevents triggering the category click
+              props.onRemove && props.onRemove(props.title);
+            }}
+            style={{ marginTop: "10px", cursor: "pointer" }}
+          >
+            Remove
+          </button>
+      )}
       )}
 
       <p>{props.title}</p>
