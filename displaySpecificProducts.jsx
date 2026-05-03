@@ -13,7 +13,7 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
     const fetchData = async () => {
       setLoading(true);
       setError("");
-
+f
       try {
         console.log(`Fetching: ${title}`);
         const response = await fetch(
@@ -47,9 +47,10 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
     <div>
       <Header isValid2={isValid2} nameOfTheUser={nameOfTheUser} />
       <div className="displayProducts">
+        <div className="headerRow">
         <h1 className="Products">{title}</h1>
         <button>Add a Product</button>
-
+        </div>
         {loading && <p>Loading {title}...</p>}
 
         {error && (
