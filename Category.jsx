@@ -29,6 +29,7 @@ function Category(props) {
       )}
 
       {matchesCategory && props.title !== "" && (
+      <>
         <Link to={`/displaySpecificProducts/${props.title}`}>
           <img
             src={props.image}
@@ -36,18 +37,20 @@ function Category(props) {
             style={{ width: "270px", height: "200px", objectFit: "cover" }}
           />
         </Link>
+    
         {props.nameOfTheUser === "HassanAtouiAdmin" && (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  props.onRemove && props.onRemove(props.title);
-                }}
-                style={{ marginTop: "10px", cursor: "pointer" }}
-              >
-                Remove
-              </button>
-            )}
-      )}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              props.onRemove && props.onRemove(props.title);
+            }}
+            style={{ marginTop: "10px", cursor: "pointer" }}
+          >
+            Remove
+          </button>
+        )}
+      </>
+    )}
 
       {!matchesCategory && props.title !== "" && (
         <>
