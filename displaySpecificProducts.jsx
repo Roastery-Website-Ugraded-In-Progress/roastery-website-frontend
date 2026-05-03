@@ -50,9 +50,11 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
       <div className="displayProducts">
         <div className="headerRow">
         <h1 className="Products">{title}</h1>
+          {nameOfTheUser === "HassanAtouiAdmin" && (
         <button onClick={() => navigate("/add-product")}>
               Add a Product
             </button>
+      )}
         </div>
         {loading && <p>Loading {title}...</p>}
 
