@@ -13,7 +13,7 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
     const fetchData = async () => {
       setLoading(true);
       setError("");
-f
+
       try {
         console.log(`Fetching: ${title}`);
         const response = await fetch(
