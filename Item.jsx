@@ -37,8 +37,8 @@ function Item({ isValid2, nameOfTheUser, email2 }) {
 
   useEffect(() => {
     if (product) {
-      setPrice(product.price_per_kg);
-      setDynamicPrice(product.price_per_kg);
+      setPrice(product.Price_per_kg);
+      setDynamicPrice(product.Price_per_kg);
     }
   }, [product]);
 
