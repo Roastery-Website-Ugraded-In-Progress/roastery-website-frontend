@@ -46,7 +46,6 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
     fetchData();
   }, [title]);
 
-  // ✅ Remove product from UI after delete
   const handleRemove = (id) => {
     setProducts((prev) => prev.filter((p) => p.Product_id !== id));
   };
