@@ -36,7 +36,7 @@ function AddProduct() {
             image: image,
             price_per_kg: parseFloat(price),
             description,
-            categories_id: parseInt(category_id), // ✅ FROM URL
+            category_id: Number(category_id)
           }),
         }
       );
