@@ -39,7 +39,6 @@ function Item({ isValid2, nameOfTheUser, email2 }) {
     const data = await res.json();
 
     if (data.success) {
-      // instantly update UI
       setPrice(Number(newPrice));
       setDynamicPrice(Number(newPrice));
       setNewPrice("");
