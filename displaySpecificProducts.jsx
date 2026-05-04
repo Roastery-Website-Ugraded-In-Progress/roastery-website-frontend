@@ -104,5 +104,3 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
 }
 
 export default DisplaySpecificProducts;
-
-modify this code so that I can do what I need to do
