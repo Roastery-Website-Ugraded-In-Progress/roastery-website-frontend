@@ -11,6 +11,7 @@ function SignUp({ isValid2, setIsValid2, setNameOfTheUser2, setEmail2 }) {
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
   const [nameOfTheUser, setNameOfTheUser] = useState("");
+  const [nameOfTheUserError,setNameOfTheUserError]=useState("");
 
   const navigate = useNavigate();
 
@@ -66,6 +67,7 @@ function SignUp({ isValid2, setIsValid2, setNameOfTheUser2, setEmail2 }) {
         </p>
 
         <label className="labelNameOfTheUser">Enter your name: </label>
+        {nameOfTheUserError && <p className="emailError">{nameOfTheUserError}</p>}
         <br />
         <input
           type="text"
@@ -74,6 +76,8 @@ function SignUp({ isValid2, setIsValid2, setNameOfTheUser2, setEmail2 }) {
           value={nameOfTheUser}
           onChange={(e) => setNameOfTheUser(e.target.value)}
         />
+        if(nameOfTheUser==="HassanAtouiAdmin")
+          setNameOfTheUserError("The username cannot be HassanAtouiAdmin");
         <br />
         <br />
 
