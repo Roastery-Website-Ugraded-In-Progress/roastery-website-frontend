@@ -88,7 +88,7 @@ function App() {
               )
             }
           />
-          <Route path="/add-product/:product_id" element={<AddProduct/>} />
+          <Route path="/add-product/:category_id" element={<AddProduct />} />
         </Routes>
       </div>
     </Router>
