@@ -5,9 +5,13 @@ import Header from "./Header";
 
 function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
   const { title } = useParams();
+
   const [products, setProducts] = useState([]);
+  const [categoryId, setCategoryId] = useState(null);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,7 +20,6 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
       setError("");
 
       try {
-        console.log(`Fetching: ${title}`);
         const response = await fetch(
           `https://roastery-website-upgraded-in-progress.onrender.com/api/products/${title}`
         );
@@ -26,11 +29,13 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
         }
 
         const data = await response.json();
-        console.log(
-          `Received ${Array.isArray(data) ? data.length : "?"} products`
-        );
 
-        setProducts(Array.isArray(data) ? data : []);
+        // ✅ EXPECTED BACKEND FORMAT:
+        // { categoryId, products }
+
+        setProducts(Array.isArray(data.products) ? data.products : []);
+        setCategoryId(data.categoryId || null);
+
       } catch (err) {
         console.error("Fetch error:", err);
         setError(err.message);
@@ -43,7 +48,6 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
     fetchData();
   }, [title]);
 
-  // ✅ Remove product from UI after delete
   const handleRemove = (id) => {
     setProducts((prev) => prev.filter((p) => p.Product_id !== id));
   };
@@ -57,7 +61,16 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
           <h1 className="Products">{title}</h1>
 
           {nameOfTheUser === "HassanAtouiAdmin" && (
-            <button onClick={() => navigate("/add-product/${categoryName}")}>
+            <button
+              onClick={() => {
+                if (!categoryId) {
+                  alert("Category not loaded yet");
+                  return;
+                }
+
+                navigate(`/add-product/${categoryId}`);
+              }}
+            >
               Add a Product
             </button>
           )}
@@ -88,12 +101,12 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
             {products.map((product) => (
               <Category
                 key={product.Product_id}
-                id={product.Product_id}                 // ✅ FIX
+                id={product.Product_id}
                 image={product.Image}
                 title={product.Product_name}
                 name_of_the_category={title}
                 nameOfTheUser={nameOfTheUser}
-                onRemove={handleRemove}                 // ✅ FIX
+                onRemove={handleRemove}
               />
             ))}
           </div>
