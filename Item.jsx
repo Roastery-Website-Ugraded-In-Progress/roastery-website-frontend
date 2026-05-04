@@ -65,7 +65,9 @@ function Item({ isValid2, nameOfTheUser, email2 }) {
         <div>
           <h1>{title}</h1>
           <p className="price">{dynamicPrice} $</p>
+          {nameOfTheUser==="HassanAtouiAdmin &&
           <input placeholder="Add a new price"></input>
+          }
           <div className="packedIn">
             <button
               className={active1 ? "clicked" : ""}
