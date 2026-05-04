@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
 function AddProduct() {
-  const { category_id } = useParams(); // ✅ GET FROM URL
+  const { category_id } = useParams();
 
   const [productName, setProductName] = useState("");
   const [image, setImage] = useState("");
