@@ -12,6 +12,10 @@ function AddProduct() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
+  if (!category_id || isNaN(Number(category_id))) {
+    setMessage("Invalid category ID");
+    return;
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
 
