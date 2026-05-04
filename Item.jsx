@@ -29,10 +29,10 @@ function Item({ isValid2, nameOfTheUser, email2 }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          category: name_of_the_category,
-          productName: title,
-          newPrice: Number(newPrice),
-        }),
+        category: name_of_the_category.trim(),
+        productName: title,
+        newPrice: Number(newPrice),
+      }),
       }
     );
 
@@ -66,7 +66,7 @@ function Item({ isValid2, nameOfTheUser, email2 }) {
 
   useEffect(() => {
     fetch(
-      `https://roastery-website-upgraded-in-progress.onrender.com/api/item/${name_of_the_category}/${title}?name=${nameOfTheUser}&email=${email2}`
+      `https://roastery-website-upgraded-in-progress.onrender.com/api/item/${name_of_the_category}/${title}`
     )
       .then((res) => res.json())
       .then((data) => setProduct(data))
