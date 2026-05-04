@@ -14,6 +14,44 @@ function Item({ isValid2, nameOfTheUser, email2 }) {
   const [dynamicPrice, setDynamicPrice] = useState(0);
   const [totalWeight, setTotalWeight] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [newPrice, setNewPrice] = useState("");
+
+  const handleUpdatePrice = async () => {
+  if (!newPrice) {
+    alert("Enter a price");
+    return;
+  }
+
+  try {
+    const res = await fetch(
+      "https://roastery-website-upgraded-in-progress.onrender.com/api/updatePrice",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          category: name_of_the_category,
+          productName: title,
+          newPrice: Number(newPrice),
+        }),
+      }
+    );
+
+    const data = await res.json();
+
+    if (data.success) {
+      // instantly update UI
+      setPrice(Number(newPrice));
+      setDynamicPrice(Number(newPrice));
+      setNewPrice("");
+      alert("Price updated successfully");
+    } else {
+      alert(data.error);
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Server error");
+  }
+};
 
   function updateTotals(newWeight = weight, newQuantity = quantity) {
     const dynamicPrice2 = Number((newWeight * price).toFixed(2));
@@ -65,9 +103,21 @@ function Item({ isValid2, nameOfTheUser, email2 }) {
         <div>
           <h1>{title}</h1>
           <p className="price">{dynamicPrice} $</p>
-          {nameOfTheUser==="HassanAtouiAdmin" &&
-          <input type="number" placeholder="Add a new price"></input>
-          }
+          {nameOfTheUser === "HassanAtouiAdmin" && (
+            <div>
+              <input
+                type="number"
+                step="0.01"
+                placeholder="Add a new price"
+                value={newPrice}
+                onChange={(e) => setNewPrice(e.target.value)}
+              />
+          
+              <button onClick={handleUpdatePrice}>
+                Update Price
+              </button>
+            </div>
+          )}
           <div className="packedIn">
             <button
               className={active1 ? "clicked" : ""}
