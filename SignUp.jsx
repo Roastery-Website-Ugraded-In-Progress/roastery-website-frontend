@@ -24,9 +24,12 @@ function SignUp({ isValid2, setIsValid2, setNameOfTheUser2, setEmail2 }) {
       setPassword,
       setPasswordErrorMessage
     );
-
+    if (nameOfTheUser === "HassanAtouiAdmin") {
+      setNameOfTheUserError("This username is not allowed");
+      return;
+    }
     if (!validEmail || !validPassword) return;
-
+    
     setIsValid2(true);
 
     try {
@@ -76,8 +79,7 @@ function SignUp({ isValid2, setIsValid2, setNameOfTheUser2, setEmail2 }) {
           value={nameOfTheUser}
           onChange={(e) => setNameOfTheUser(e.target.value)}
         />
-        if(nameOfTheUser==="HassanAtouiAdmin")
-          setNameOfTheUserError("The username cannot be HassanAtouiAdmin");
+        
         <br />
         <br />
 
