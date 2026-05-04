@@ -27,13 +27,13 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
         }
 
         const data = await response.json();
-        console.log(
-          `Received ${Array.isArray(data) ? data.length : "?"} products`
-        );
 
         setProducts(Array.isArray(data) ? data : []);
-        console.log(data[0].categoryId);//is this statement being executed?
-        setCategoryId(data.categoryId);
+        
+        if (Array.isArray(data) && data.length > 0) {
+          console.log(data[0].categoryId);
+          setCategoryId(data[0].categoryId);
+        }
       } catch (err) {
         console.error("Fetch error:", err);
         setError(err.message);
@@ -60,9 +60,9 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
           <h1 className="Products">{title}</h1>
 
           {nameOfTheUser === "HassanAtouiAdmin" && (
-            <button onClick={() =>navigate(`/add-product/${data[0].categoryId}`)}>
-              Add a Product
-            </button>
+            <button onClick={() => navigate(`/add-product/${categoryId}`)}>
+            Add a Product
+          </button>
           )}
         </div>
 
