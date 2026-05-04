@@ -1,18 +1,21 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 
 function AddProduct() {
+  const { category_id } = useParams(); // ✅ GET FROM URL
+
   const [productName, setProductName] = useState("");
   const [image, setImage] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [categoryId, setCategoryId] = useState("");
+
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!productName || !image || !price || !categoryId) {
+    if (!productName || !image || !price) {
       setMessage("Please fill all required fields");
       return;
     }
@@ -22,7 +25,7 @@ function AddProduct() {
 
     try {
       const response = await fetch(
-      "https://roastery-website-upgraded-in-progress.onrender.com/api/products/add-product",
+        "https://roastery-website-upgraded-in-progress.onrender.com/api/products/add-product",
         {
           method: "POST",
           headers: {
@@ -33,7 +36,7 @@ function AddProduct() {
             image: image,
             price_per_kg: parseFloat(price),
             description,
-            categories_id: parseInt(categoryId),
+            categories_id: parseInt(category_id), // ✅ FROM URL
           }),
         }
       );
@@ -45,11 +48,12 @@ function AddProduct() {
       }
 
       setMessage("Product added successfully!");
+
       setProductName("");
       setImage("");
       setPrice("");
       setDescription("");
-      setCategoryId("");
+
     } catch (err) {
       setMessage(err.message);
     } finally {
@@ -60,6 +64,11 @@ function AddProduct() {
   return (
     <div style={{ padding: "30px", maxWidth: "500px", margin: "auto" }}>
       <h2>Add New Product</h2>
+
+      {/* Optional: show category for debugging */}
+      <p style={{ color: "gray" }}>
+        Category ID: {category_id}
+      </p>
 
       <form onSubmit={handleSubmit}>
         <input
@@ -86,14 +95,6 @@ function AddProduct() {
         />
         <br /><br />
 
-        <input
-          type="text"
-          placeholder="Category ID"
-          value={categoryId}
-          onChange={(e) => setCategoryId(e.target.value)}
-        />
-        <br /><br />
-
         <textarea
           placeholder="Description"
           value={description}
@@ -107,7 +108,10 @@ function AddProduct() {
       </form>
 
       {message && (
-        <p style={{ marginTop: "20px", color: message.includes("success") ? "green" : "red" }}>
+        <p style={{
+          marginTop: "20px",
+          color: message.includes("success") ? "green" : "red"
+        }}>
           {message}
         </p>
       )}
