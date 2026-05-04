@@ -7,7 +7,7 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
   const { title } = useParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [categoryId,setCategoryId]=useState("");
+  const [categoryId,setCategoryId]=useState();
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
