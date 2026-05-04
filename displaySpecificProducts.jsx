@@ -31,7 +31,7 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
         setProducts(Array.isArray(data) ? data : []);
         
         if (Array.isArray(data) && data.length > 0) {
-          console.log(data[0].Categories_id);
+          console.log(data[0]?.Categories_id);
           setCategoryId(data[0].Categories_id);
         }
       } catch (err) {
