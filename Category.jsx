@@ -53,9 +53,9 @@ function Category(props) {
 
       console.log("Deleted successfully:", data);
 
-      if (props.onRemove) {
-        props.onRemove(props.id);
-      }
+      //if (props.onRemove) {
+      //  props.onRemove(props.id);
+      //}
     } catch (err) {
       console.error("Delete error:", err);
     }
