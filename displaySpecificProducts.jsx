@@ -32,7 +32,7 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
         );
 
         setProducts(Array.isArray(data) ? data : []);
-        console.log(data.categoryId);
+        console.log(data[0].categoryId);//is this statement being executed?
         setCategoryId(data.categoryId);
       } catch (err) {
         console.error("Fetch error:", err);
@@ -60,7 +60,7 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
           <h1 className="Products">{title}</h1>
 
           {nameOfTheUser === "HassanAtouiAdmin" && (
-            <button onClick={() =>navigate(`/add-product/${categoryId}`)}>
+            <button onClick={() =>navigate(`/add-product/${data[0].categoryId}`)}>
               Add a Product
             </button>
           )}
