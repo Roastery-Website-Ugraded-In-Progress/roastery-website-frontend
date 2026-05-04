@@ -29,7 +29,6 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
         console.log(
           `Received ${Array.isArray(data) ? data.length : "?"} products`
         );
-        console.log("Sample product:", data[0]);
 
         setProducts(Array.isArray(data) ? data : []);
       } catch (err) {
@@ -44,28 +43,32 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
     fetchData();
   }, [title]);
 
+  // ✅ Remove product from UI after delete
+  const handleRemove = (id) => {
+    setProducts((prev) => prev.filter((p) => p.Product_id !== id));
+  };
+
   return (
     <div>
       <Header isValid2={isValid2} nameOfTheUser={nameOfTheUser} />
+
       <div className="displayProducts">
         <div className="headerRow">
-        <h1 className="Products">{title}</h1>
+          <h1 className="Products">{title}</h1>
+
           {nameOfTheUser === "HassanAtouiAdmin" && (
-        <button onClick={() => navigate("/add-product")}>
+            <button onClick={() => navigate("/add-product")}>
               Add a Product
             </button>
-      )}
+          )}
         </div>
+
         {loading && <p>Loading {title}...</p>}
 
         {error && (
           <div style={{ color: "red", padding: "20px" }}>
             <h3>Error loading {title}:</h3>
             <p>{error}</p>
-            <p>
-              Try: http://localhost:3000/api/products/
-              {encodeURIComponent(title)}
-            </p>
           </div>
         )}
 
@@ -85,10 +88,12 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
             {products.map((product) => (
               <Category
                 key={product.Product_id}
+                id={product.Product_id}                 // ✅ FIX
                 image={product.Image}
                 title={product.Product_name}
                 name_of_the_category={title}
                 nameOfTheUser={nameOfTheUser}
+                onRemove={handleRemove}                 // ✅ FIX
               />
             ))}
           </div>
