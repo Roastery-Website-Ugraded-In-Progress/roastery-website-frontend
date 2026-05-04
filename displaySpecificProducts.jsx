@@ -32,7 +32,7 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
         
         if (Array.isArray(data) && data.length > 0) {
           console.log(data[0].categoryId);
-          setCategoryId(data[0].categoryId);
+          setCategoryId(data[0].Categories_id);
         }
       } catch (err) {
         console.error("Fetch error:", err);
@@ -60,7 +60,10 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
           <h1 className="Products">{title}</h1>
 
           {nameOfTheUser === "HassanAtouiAdmin" && (
-            <button onClick={() => navigate(`/add-product/${categoryId}`)}>
+            <button
+            disabled={!categoryId}
+            onClick={() => navigate(`/add-product/${categoryId}`)}
+          >
             Add a Product
           </button>
           )}
