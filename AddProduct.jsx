@@ -22,7 +22,7 @@ function AddProduct() {
 
     try {
       const response = await fetch(
-        "https://roastery-website-upgraded-in-progress.onrender.com/api/add-product",
+      "https://roastery-website-upgraded-in-progress.onrender.com/api/products/add-product",
         {
           method: "POST",
           headers: {
