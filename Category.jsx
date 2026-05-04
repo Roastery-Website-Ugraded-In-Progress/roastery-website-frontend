@@ -24,14 +24,16 @@ function Category(props) {
     linkPath = `/item/${props.name_of_the_category}/${title}`;
   }
 
-  // ✅ DELETE PRODUCT (backend call)
+  // ✅ DELETE PRODUCT
   const handleRemove = async (e) => {
     e.stopPropagation();
     e.preventDefault();
 
     try {
+      console.log("Deleting product id:", props.id);
+
       const res = await fetch(
-        "http://localhost:5000/api/products/delete-product",
+        "https://roastery-website-upgraded-in-progress.onrender.com/api/products/delete-product", // ✅ FIXED URL
         {
           method: "DELETE",
           headers: {
@@ -46,11 +48,13 @@ function Category(props) {
       const data = await res.json();
 
       if (!res.ok) {
-        console.error(data);
+        console.error("Delete failed:", data);
         return;
       }
 
-      // update UI in parent
+      console.log("Deleted successfully:", data);
+
+      // ✅ update UI
       if (props.onRemove) {
         props.onRemove(props.id);
       }
