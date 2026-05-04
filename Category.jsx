@@ -24,7 +24,6 @@ function Category(props) {
     linkPath = `/item/${props.name_of_the_category}/${title}`;
   }
 
-  // ✅ DELETE PRODUCT
   const handleRemove = async (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -33,7 +32,7 @@ function Category(props) {
       console.log("Deleting product id:", props.id);
 
       const res = await fetch(
-        "https://roastery-website-upgraded-in-progress.onrender.com/api/products/delete-product", // ✅ FIXED URL
+        "https://roastery-website-upgraded-in-progress.onrender.com/api/products/delete-product",
         {
           method: "DELETE",
           headers: {
@@ -54,7 +53,6 @@ function Category(props) {
 
       console.log("Deleted successfully:", data);
 
-      // ✅ update UI
       if (props.onRemove) {
         props.onRemove(props.id);
       }
