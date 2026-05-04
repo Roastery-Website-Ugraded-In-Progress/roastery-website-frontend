@@ -57,7 +57,7 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
           <h1 className="Products">{title}</h1>
 
           {nameOfTheUser === "HassanAtouiAdmin" && (
-            <button onClick={() => navigate("/add-product")}>
+            <button onClick={() => navigate("/add-product/${categoryName}")}>
               Add a Product
             </button>
           )}
