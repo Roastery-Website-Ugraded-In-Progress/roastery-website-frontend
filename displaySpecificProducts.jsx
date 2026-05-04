@@ -7,6 +7,7 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
   const { title } = useParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [categoryId,setCategoryId]=useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -31,6 +32,7 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
         );
 
         setProducts(Array.isArray(data) ? data : []);
+        setCategoryId(data.categoryId);
       } catch (err) {
         console.error("Fetch error:", err);
         setError(err.message);
@@ -57,7 +59,7 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
           <h1 className="Products">{title}</h1>
 
           {nameOfTheUser === "HassanAtouiAdmin" && (
-            <button onClick={() => navigate("/add-product/${categoryName}")}>
+            <button onClick={() =>navigate(`/add-product/${categoryId}`)}>
               Add a Product
             </button>
           )}
@@ -88,12 +90,12 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
             {products.map((product) => (
               <Category
                 key={product.Product_id}
-                id={product.Product_id}                 // ✅ FIX
+                id={product.Product_id}               
                 image={product.Image}
                 title={product.Product_name}
                 name_of_the_category={title}
                 nameOfTheUser={nameOfTheUser}
-                onRemove={handleRemove}                 // ✅ FIX
+                onRemove={handleRemove}               
               />
             ))}
           </div>
