@@ -34,6 +34,32 @@ function UserProducts({ email, nameOfTheUser }) {
     fetchProducts();
   }, [email]);
 
+  const handleDelete = async () => {
+  try {
+    const res = await fetch(
+      `https://roastery-website-upgraded-in-progress.onrender.com/api/userProducts?email=${email}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      }
+    );
+
+    const data = await res.json();
+
+    if (data.success) {
+        setProducts([]);
+        setError(null);
+        setLoading(false);
+      }
+    else {
+      setError(data.error || "Failed to delete");
+    }
+  } catch (err) {
+    console.error("Delete error:", err);
+    setError("Network error");
+  }
+};
+  
   if (!email) return <p>Please log in to view your cart.</p>;
   if (loading) return <p>Loading products...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -45,6 +71,9 @@ function UserProducts({ email, nameOfTheUser }) {
 
   return (
     <div className="UserProductsDiv">
+      <button onClick={handleDelete} className="deleteButton">
+        Delete All Products
+      </button>
       <h2>Products for {nameOfTheUser}</h2>
       <table>
         <thead>
