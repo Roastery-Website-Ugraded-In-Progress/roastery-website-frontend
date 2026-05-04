@@ -32,6 +32,7 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
         );
 
         setProducts(Array.isArray(data) ? data : []);
+        console.log(data.categoryId);
         setCategoryId(data.categoryId);
       } catch (err) {
         console.error("Fetch error:", err);
