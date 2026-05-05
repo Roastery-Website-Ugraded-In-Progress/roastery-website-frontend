@@ -200,10 +200,6 @@ function Item({ isValid2, nameOfTheUser, email2 }) {
 
           <hr />
           <p>
-            <b>Categories: </b>
-            {product.categories}
-          </p>
-          <p>
             <b>Description: </b>
             {product.Description}
           </p>
