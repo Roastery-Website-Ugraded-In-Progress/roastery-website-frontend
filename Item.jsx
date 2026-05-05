@@ -201,13 +201,19 @@ function Item({ isValid2, nameOfTheUser, email2 }) {
           <hr />
           <p>
             {name_of_the_category!=="undefined" &&
-            (<b>Categories: </b>
-            {name_of_the_category})
-            }
+            (
+              <>
+              <b>Categories: </b>
+            {name_of_the_category}
+              </>
+            )}
             {name_of_the_category==="undefined" &&
-            (<b>Categories: </b>
-            Coffee)
-            }
+            (
+              <>
+              <b>Categories: </b>
+            Coffee
+              </>
+            )}
           </p>
           <p>
             <b>Description: </b>
