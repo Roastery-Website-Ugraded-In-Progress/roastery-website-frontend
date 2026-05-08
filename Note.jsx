@@ -32,7 +32,7 @@ function Note({ isValid2, nameOfTheUser }) {
           <h1>
             FRESHLY ROASTED
             <br />
-            COFFEE trying something
+            COFFEE
           </h1>
           <p>
             Discover the flavor of our freshly roasted coffee.
