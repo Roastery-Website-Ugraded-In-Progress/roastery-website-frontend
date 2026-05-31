@@ -11,7 +11,7 @@ function UserProducts({ email, nameOfTheUser }) {
     const fetchProducts = async () => {
       try {
         const res = await fetch(
-          `https://roastery-website-upgraded-in-progress.onrender.com/api/userProducts?email=${email}`,
+          `https://roastery-website-backend.onrender.com/api/userProducts?email=${email}`,
           {
             credentials: "include",
           }
@@ -37,7 +37,7 @@ function UserProducts({ email, nameOfTheUser }) {
   const handleDelete = async () => {
   try {
     const res = await fetch(
-      `https://roastery-website-upgraded-in-progress.onrender.com/api/userProducts?email=${email}`,
+      `https://roastery-website-backend.onrender.com/api/userProducts?email=${email}`,
       {
         method: "DELETE",
         credentials: "include",

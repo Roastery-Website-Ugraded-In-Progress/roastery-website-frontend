@@ -19,7 +19,7 @@ function DisplaySpecificProducts({ isValid2, nameOfTheUser }) {
       try {
         console.log(`Fetching: ${title}`);
         const response = await fetch(
-          `https://roastery-website-upgraded-in-progress.onrender.com/api/products/${title}`
+          `https://roastery-website-backend.onrender.com/api/products/${title}`
         );
 
         if (!response.ok) {

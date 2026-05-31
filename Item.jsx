@@ -24,7 +24,7 @@ function Item({ isValid2, nameOfTheUser, email2 }) {
 
   try {
     const res = await fetch(
-      "https://roastery-website-upgraded-in-progress.onrender.com/api/updatePrice",
+      "https://roastery-website-backend.onrender.com/api/updatePrice",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -65,7 +65,7 @@ function Item({ isValid2, nameOfTheUser, email2 }) {
 
   useEffect(() => {
     fetch(
-      `https://roastery-website-upgraded-in-progress.onrender.com/api/item/${name_of_the_category}/${title}`
+      `https://roastery-website-backend.onrender.com/api/item/${name_of_the_category}/${title}`
     )
       .then((res) => res.json())
       .then((data) => setProduct(data))
@@ -182,7 +182,7 @@ function Item({ isValid2, nameOfTheUser, email2 }) {
               }
 
               fetch(
-                `https://roastery-website-upgraded-in-progress.onrender.com/api/someEndpoint?title=${encodeURIComponent(
+                `https://roastery-website-backend.onrender.com/api/someEndpoint?title=${encodeURIComponent(
                   title
                 )}&totalWeight=${totalWeight}&totalPrice=${totalPrice}&email2=${encodeURIComponent(
                   email2

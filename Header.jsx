@@ -44,7 +44,7 @@ function Header({ isValid2, nameOfTheUser }) {
           <button
             onClick={async () => {
               await fetch(
-                `https://roastery-website-upgraded-in-progress.onrender.com/logout`,
+                `https://roastery-website-backend.onrender.com/logout`,
                 {
                   method: "GET",
                   credentials: "include",

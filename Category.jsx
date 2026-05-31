@@ -32,7 +32,7 @@ function Category(props) {
       console.log("Deleting product id:", props.id);
 
       const res = await fetch(
-        "https://roastery-website-upgraded-in-progress.onrender.com/api/products/delete-product",
+        "https://roastery-website-backend.onrender.com/api/products/delete-product",
         {
           method: "DELETE",
           headers: {

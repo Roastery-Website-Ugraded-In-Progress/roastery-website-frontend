@@ -34,7 +34,7 @@ function SignUp({ isValid2, setIsValid2, setNameOfTheUser2, setEmail2 }) {
 
     try {
       const response = await fetch(
-        `https://roastery-website-upgraded-in-progress.onrender.com/signUp`,
+        `https://roastery-website-backend.onrender.com/signUp`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
