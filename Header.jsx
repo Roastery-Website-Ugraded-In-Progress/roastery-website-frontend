@@ -85,7 +85,7 @@ function Header({ isValid, nameOfTheUser, setIsValid, setNameOfTheUser, email}){
               }}
                 onClick={async()=>{
                   const response= await fetch(
-                      'http://localhost:3000/logout',
+                      'https://roastery-website-backend-2.onrender.com/logout',
                       {
                         method: "GET",
                         credentials: "include",
