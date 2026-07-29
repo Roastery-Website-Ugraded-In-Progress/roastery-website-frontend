@@ -16,7 +16,7 @@ function DisplaySpecificProducts({admin, isValid, nameOfTheUser, email}){
         const fetchData=async()=>{
             setLoading(true);
             try{
-                const response=await fetch(`http://localhost:3000/api/products/${title}`);
+                const response=await fetch(`https://roastery-website-backend-2.onrender.com/api/products/${title}`);
                 if(!response.ok){
                     throw new Error(`HTTP ${response} : ${response.statusText}`);
                 }
