@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function UserProducts({ email, nameOfTheUser }) {
+function UserProducts({ admin, email, nameOfTheUser }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,7 +11,7 @@ function UserProducts({ email, nameOfTheUser }) {
     const fetchProducts = async () => {
       try {
         const res = await fetch(
-          `https://roastery-website-backend.onrender.com/api/userProducts?email=${email}`,
+          `http://localhost:3000/api/userProducts?email=${email}`,
           {
             credentials: "include",
           }
@@ -37,7 +37,7 @@ function UserProducts({ email, nameOfTheUser }) {
   const handleDelete = async () => {
   try {
     const res = await fetch(
-      `https://roastery-website-backend.onrender.com/api/userProducts?email=${email}`,
+      `http://localhost:3000/api/userProducts?email=${email}`,
       {
         method: "DELETE",
         credentials: "include",

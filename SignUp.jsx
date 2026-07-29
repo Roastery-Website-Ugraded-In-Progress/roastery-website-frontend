@@ -13,38 +13,24 @@ function SignUp({ isValid2, setIsValid2, setNameOfTheUser2, setEmail2 }) {
   const [nameOfTheUser, setNameOfTheUser] = useState("");
   const [nameOfTheUserError,setNameOfTheUserError]=useState("");
 
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
+  const navigate=useNavigate();
+  const handleSubmit=async(e)=>{
     e.preventDefault();
-
-    const validEmail = showEmailError(email, setEmailErrorMessage, setEmail);
-    const validPassword = showPasswordError(
-      password,
-      setPassword,
-      setPasswordErrorMessage
-    );
-    if (nameOfTheUser === "HassanAtouiAdmin") {
-      setNameOfTheUserError("This username is not allowed");
-      return;
-    }
-    if (!validEmail || !validPassword) return;
-    
-    setIsValid2(true);
-
-    try {
-      const response = await fetch(
-        `https://roastery-website-backend.onrender.com/signUp`,
+    try{
+      const validEmail=showEmailError(email, setEmailErrorMessage, setEmail);
+      const validPassword=showPasswordError(password, setPassword, setPasswordErrorMessage);
+      if(!validEmail || !validPassword)
+        return;
+      setIsValid2(true);
+      const response=await fetch(`http://localhost:3000/signUp`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {"Content-Type":"application/json"},
           credentials: "include",
-          body: JSON.stringify({ username: email, password, nameOfTheUser }),
+          body: JSON.stringify({username: email, password, nameOfTheUser}),
         }
       );
-
-      const data = await response.json();
-
+      const data=await response.json();
       if (response.ok) {
         console.log(data.message);
         setNameOfTheUser2(nameOfTheUser);
@@ -53,8 +39,9 @@ function SignUp({ isValid2, setIsValid2, setNameOfTheUser2, setEmail2 }) {
         console.log(data.message);
         if (data.message.includes("Email")) setEmailErrorMessage(data.message);
       }
-    } catch (err) {
-      console.error("Error submitting form:", err);
+    } 
+    catch(err){
+      console.log("Error ")
     }
   };
 

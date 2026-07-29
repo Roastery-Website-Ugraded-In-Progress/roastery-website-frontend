@@ -1,231 +1,154 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Header from "./Header";
-
-function Item({ isValid2, nameOfTheUser, email2 }) {
-  const { name_of_the_category, title } = useParams();
-  const [product, setProduct] = useState(null);
-  const [weight, setWeight] = useState(0);
-  const [active1, setActive1] = useState(false);
-  const [active2, setActive2] = useState(false);
-  const [active3, setActive3] = useState(false);
-  const [quantity, setQuantity] = useState(0);
-  const [price, setPrice] = useState(0);
-  const [dynamicPrice, setDynamicPrice] = useState(0);
-  const [totalWeight, setTotalWeight] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [newPrice, setNewPrice] = useState("");
-
-  const handleUpdatePrice = async () => {
-  if (!newPrice) {
-    alert("Enter a price");
-    return;
-  }
-
-  try {
-    const res = await fetch(
-      "https://roastery-website-backend.onrender.com/api/updatePrice",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-        category: name_of_the_category.trim(),
-        productName: title,
-        newPrice: Number(newPrice),
-      }),
-      }
-    );
-
-    const data = await res.json();
-
-    if (data.success) {
-      setPrice(Number(newPrice));
-      setDynamicPrice(Number(newPrice));
-      setNewPrice("");
-      alert("Price updated successfully");
-    } else {
-      alert(data.error);
-    }
-  } catch (err) {
-    console.error(err);
-    alert("Server error");
-  }
-};
-
-  function updateTotals(newWeight = weight, newQuantity = quantity) {
-    const dynamicPrice2 = Number((newWeight * price).toFixed(2));
-    setDynamicPrice(dynamicPrice2);
-
-    const totalW = Number((newWeight * newQuantity).toFixed(2));
-    setTotalWeight(totalW);
-
-    const newTotalPrice = Number((newQuantity * dynamicPrice2).toFixed(2));
-    setTotalPrice(newTotalPrice);
-  }
-
-  useEffect(() => {
-    fetch(
-      `https://roastery-website-backend.onrender.com/api/item/${name_of_the_category}/${title}`
-    )
-      .then((res) => res.json())
-      .then((data) => setProduct(data))
-      .catch((err) => console.error("Fetch error:", err));
-  }, [name_of_the_category, title]);
-
-  useEffect(() => {
-    if (product) {
-      setPrice(product.Price_per_kg);
-      setDynamicPrice(product.Price_per_kg);
-    }
-  }, [product]);
-
-  if (!product) return <h2>Loading product...</h2>;
-
-  return (
-    <div className="item3">
-      <Header isValid2={isValid2} nameOfTheUser={nameOfTheUser} />
-
-      <div className="item">
-        <div className="bigImageInsideItem">
-          {product.Image ? (
-            <img
-              className="itemSizeOfImage"
-              src={product.Image}
-              alt={title}
-              style={{ width: "400px", height: "auto" }}
-            />
-          ) : (
-            <p>No image available</p>
-          )}
-        </div>
-
-        <div>
-          <h1>{title}</h1>
-          <p className="price">{dynamicPrice} $</p>
-          {nameOfTheUser === "HassanAtouiAdmin" && (
-            <div>
-              <input
-                type="number"
-                step="0.01"
-                placeholder="Add a new price"
-                value={newPrice}
-                onChange={(e) => setNewPrice(e.target.value)}
-              />
-          
-              <button onClick={handleUpdatePrice}>
-                Update Price
-              </button>
+function Item({admin, isValid, nameOfTheUser, email}){
+    const [product, setProduct]=useState(null); 
+    const { name_of_the_category, title } = useParams();
+    const [active1, setActive1]=useState(false);
+    const [active2, setActive2]=useState(false);
+    const [active3, setActive3]=useState(false);
+    const [displayPrice, setDisplayPrice]=useState(0);
+    const [weight, setWeight]=useState(0);
+    const [totalWeight, setTotalWeight]= useState(0);
+    const [totalPrice, setTotalPrice]= useState(0);
+    const [quantity, setQuantity]= useState(0);
+    const [verifyQuantity, setVerifyQuantity]=useState(true);
+    console.log("Item.jsx: boolean admin: "+admin);
+    
+    useEffect(()=>{
+        const fetchData=async()=>{
+            try{
+                const response=await fetch(`http://localhost:3000/api/item/${name_of_the_category}/${title}`);
+                if(!response.ok){
+                    console.log("The response was unfortunately not ok");
+                    throw new Error(`HTTP: ${response.status} : ${response.statusText}`);
+                }
+                const data=await response.json();
+                setDisplayPrice(data.Price_per_kg);
+                console.log("The display Price is (we are in Item.jsx) is: "+data.Price_per_kg);
+                if(data){
+                    console.log("The products in the Items.jsx are: "+data);
+                    setProduct(data);
+                }
+            }
+            catch(err){
+                console.log("an error has occured");
+                console.error("An error has occured",error);
+                setProduct(null);
+            }
+        }
+        fetchData();
+    },[title, name_of_the_category]);
+    if(!product)
+        return(
+            <p
+            style={{
+                fontWeight:"bold",
+                fontSize:"20px",
+            }}
+        >Loading product...</p>
+        );
+    return(
+        <div className="Item">
+            <Header isValid={isValid} nameOfTheUser={nameOfTheUser} email={email}/>
+            <div className="displayingItem">
+                <img src={product.Image}/>
+                <div className="itemInfo">
+                    <p id="title">{product.Product_name}</p>
+                    <p>{displayPrice} $</p>
+                    <div className="buttons">
+                        <button className={active1? "activeButton" : ""}
+                            onClick={()=>{
+                                    setActive1(true);
+                                    setActive2(false);
+                                    setActive3(false);
+                                    setDisplayPrice(product.Price_per_kg/5);
+                                    setWeight(0.2);
+                                    setTotalWeight(0.2*quantity);
+                                    setTotalPrice(quantity*product.Price_per_kg/5);
+                            }}
+                        >200g</button>
+                        <button className={active2? "activeButton" : ""}
+                            onClick={()=>{
+                                    setActive2(true);
+                                    setActive1(false);
+                                    setActive3(false);
+                                    setDisplayPrice(product.Price_per_kg/2);
+                                    setWeight(0.5);
+                                    setTotalWeight(0.5*quantity);
+                                    setTotalPrice(quantity*product.Price_per_kg/2);
+                            }}
+                        >500g</button>
+                        <button className={active3? "activeButton" : ""}
+                            onClick={()=>{
+                                    setActive3(true);
+                                    setActive2(false);
+                                    setActive1(false);
+                                    setDisplayPrice(product.Price_per_kg);
+                                    setWeight(1);
+                                    setTotalWeight(1*quantity);
+                                    setTotalPrice(quantity*product.Price_per_kg);
+                            }}
+                        >1000g</button>
+                    </div>
+                    <p>Quantity:</p>
+                    {!verifyQuantity &&
+                    <p style={{
+                        color:"red",
+                        fontSize: "15px",
+                    }}>Please enter a non-negative number</p>
+                    }
+                    <div className="quantityToAddToCart">
+                        <input type="number" onChange={(e)=>{
+                            if(e.target.value>=0){
+                                setVerifyQuantity(true);
+                                setTotalWeight(weight*e.target.value);
+                                if(weight!=0)
+                                    setTotalPrice(e.target.value*displayPrice);
+                                setQuantity(e.target.value);
+                            }
+                            else
+                                setVerifyQuantity(false);
+                        }}></input>
+                        
+                        <button
+                        onClick={async()=>{
+                           if(!isValid){
+                                window.location.href="/sign_in";
+                                return; 
+                           }
+                           else{
+                            const productName=product.Product_name;
+                            const response= await fetch(
+                                `http://localhost:3000/addToCart?email=${email}&productName=${productName}&totalWeight=${totalWeight}&totalPrice=${totalPrice}`,
+                                {
+                                    method: "POST",
+                                    credentials: "include",
+                                }   
+                            );
+                            if(response){
+                                alert("Your product was added to the cart");
+                            }
+                           }  
+                        }}
+                        >ADD TO CART</button>
+                    </div>
+                    <hr style={{
+                        width:"750px",
+                    }}/>
+                    <div className="categories">
+                    </div>
+                    <div className="categories">
+                    <p style={{
+                        fontWeight:"bold",
+                    }}>Description</p>
+                    <p>: {product.Description}</p>
+                    </div>
+                    <p> {totalWeight.toFixed(2)} kg of {product.Product_name}.. Price: {totalPrice.toFixed(2)} $ </p>
+                </div>
             </div>
-          )}
-          <div className="packedIn">
-            <button
-              className={active1 ? "clicked" : ""}
-              onClick={() => {
-                setWeight(0.2);
-                setActive1(true);
-                setActive2(false);
-                setActive3(false);
-                updateTotals(0.2, quantity);
-              }}
-            >
-              200g
-            </button>
-
-            <button
-              className={active2 ? "clicked" : ""}
-              onClick={() => {
-                setWeight(0.5);
-                setActive2(true);
-                setActive1(false);
-                setActive3(false);
-                updateTotals(0.5, quantity);
-              }}
-            >
-              500g
-            </button>
-
-            <button
-              className={active3 ? "clicked" : ""}
-              onClick={() => {
-                setWeight(1);
-                setActive3(true);
-                setActive2(false);
-                setActive1(false);
-                updateTotals(1, quantity);
-              }}
-            >
-              1000g
-            </button>
-          </div>
-
-          <p>Quantity:</p>
-          <input
-            type="text"
-            size="4"
-            onChange={(e) => {
-              const q = Number(e.target.value);
-              setQuantity(q);
-              updateTotals(weight, q);
-            }}
-          />
-
-          <button
-            className="addToCartButton"
-            onClick={async () => {
-              if (!isValid2) {
-                window.location.href = "/sign_in";
-                return;
-              }
-              if (!weight || !quantity) {
-                alert("Choose certain quantity and weight");
-                return;
-              }
-
-              fetch(
-                `https://roastery-website-backend.onrender.com/api/someEndpoint?title=${encodeURIComponent(
-                  title
-                )}&totalWeight=${totalWeight}&totalPrice=${totalPrice}&email2=${encodeURIComponent(
-                  email2
-                )}&nameOfTheUser=${encodeURIComponent(nameOfTheUser)}`
-              )
-                .then((res) => res.json())
-                .then((data) => console.log(data))
-                .catch((err) => console.error(err));
-
-              alert("The product was added to your cart.");
-            }}
-          >
-            ADD TO CART
-          </button>
-
-          <hr />
-          <p>
-            {name_of_the_category!=="undefined" &&
-            (
-              <>
-              <b>Categories: </b>
-            {name_of_the_category}
-              </>
-            )}
-            {name_of_the_category==="undefined" &&
-            (
-              <>
-              <b>Categories: </b>
-            Coffee
-              </>
-            )}
-          </p>
-          <p>
-            <b>Description: </b>
-            {product.Description}
-          </p>
-          <p>
-            {totalWeight} kg of {title}.. Price: {totalPrice} $
-          </p>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
-
 export default Item;

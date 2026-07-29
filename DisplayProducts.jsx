@@ -1,26 +1,25 @@
 import React from "react";
-import Category from "./Category";
+import { Link } from "react-router-dom";
 import Products from "./products";
 import Header from "./Header";
-
-function createProduct(Product) {
+import Category from "./Category";
+function createProduct(product){
   return (
-    <Category key={Product.id} image={Product.image} title={Product.title} />
+  <Category image={product.image} title={product.title}/>
   );
 }
-
-function DisplayProducts({ isValid2, nameOfTheUser }) {
-  return (
+function DisplayProducts({admin, isValid, nameOfTheUser, email}){
+    console.log("display products: boolean admin: "+admin);
+  return(
     <div>
-      <Header isValid2={isValid2} nameOfTheUser={nameOfTheUser} />
-      <div className="displayProducts">
-        <h1 className="Products">Products</h1>
-        <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-          {Products.map(createProduct)}
+        <Header isValid={isValid} nameOfTheUser={nameOfTheUser} email={email}/>
+        <div className="displayProducts">
+        <h1>Products</h1>
+        <div className="displayProductsItems">
+            {Products.map(createProduct)}
         </div>
-      </div>
+        </div>
     </div>
   );
 }
-
 export default DisplayProducts;

@@ -1,3 +1,177 @@
+
+.Header{
+  background-color: #1b0b07;
+  height:75px;
+  display:flex;
+  align-items:center;
+  gap:700px;
+}
+.Header p{
+  color:white;
+  font-size:30px;
+  margin-left:100px;
+}
+.buttonsInsideHeader button{
+  font-size:18px;
+  color:white;
+  background-color: #1b0b07;
+  border:none;
+  cursor: pointer;
+}
+.buttonsInsideHeader button:hover{
+  transform: scale(1.05);
+}
+.buttonsInsideHeader{
+  display:flex;
+  gap:25px;
+  align-items: center;
+}
+.signInUp{
+  display:flex;
+  gap:30px;
+}
+.signInUp button{
+  background-color: #d6b85a;
+  color: black;
+}
+.signInUp button:hover{
+  background-color: #f6b85a;
+}
+.noteContent{ 
+  color:white;
+  font-size:60px;
+  margin-top:30px;
+  margin-left:100px;
+}
+.noteContent button{
+  background-color: #d6b85a;
+  height:70px;
+  width:130px;
+  border:none;
+  font-weight:bold;
+  font-size:20px;
+}
+.noteContent button:hover{
+  transform:scale(1.05);
+  cursor:pointer;
+  background-color: #f6b85a;
+}
+.aboutContactUs{
+  background-color:lightyellow;
+  text-align:center;
+  font-size:23px;
+}
+.displayProducts{
+  background-color:lightyellow;
+}
+.displayProductsItems{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.Item{
+  background-color:lightyellow;
+  min-height:750px;
+}
+.displayingItem{
+  display:flex;
+  flex-wrap:wrap;
+  margin-top:100px;
+  margin-left:350px;
+  background-color:lightyellow;
+}
+.displayingItem img{
+  width:400px;
+  height:350px;
+  margin-top:40px;
+}
+.itemInfo{
+  margin-left:30px;
+}
+.itemInfo #title{
+  font-size:35px;
+  font-weight:bold;
+}
+.itemInfo p{
+  font-size:19px;
+}
+.buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap: wrap;
+}
+.quantityToAddToCart{
+  display: flex;
+  flex-wrap: wrap;
+  align-items:center;
+}
+.quantityToAddToCart button{
+  background-color: #f0c080;
+  height: 40px;
+  width: 150px;
+}
+.quantityToAddToCart input{
+  width:50px;
+  height:16px;
+  width:60px;
+}
+.activeButton{
+  background-color:green; 
+}
+.itemInfo b{
+  font-size:18px;
+}
+.categories{
+  display:flex;
+  flex-wrap:wrap;
+}
+
+.signInForm2{
+  margin-top:100px;
+  margin-left:500px;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #f5f5dc;
+  width:700px;
+  height:550px;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(255, 0, 0, 0.25);
+}
+.signInForm2 h1{
+  color: #8b4513;
+  text-align:center;
+  margin-top:50px;
+}
+
+.signInForm2Content{
+  color: #8b4513;
+  margin-left:95px;
+  margin-top:50px;
+  justify-content:center;
+}
+.signInForm2 label{
+    color:#5c4033;
+    font-weight:bold;
+    font-size:18px;
+}
+.signInForm2 input{
+  width:500px;
+  height:50px;
+  border-radius:10px;
+  border: 1px solid red;
+  background-color:#FFF5F5;
+}
+.signInForm2Content button{
+  background-color:#8b4513;
+  margin-left:160px;  
+  width:120px;
+  height:40px;
+  color:white;
+  border-radius:6px;
+  border:none;
+  cursor:pointer;
+}
+/*Below is the old css */
 .buttons-inside-the-header button {
   color: white;
   border: none;
@@ -119,7 +293,7 @@
 }
 .AboutUs {
   background-color: lightyellow;
-  width: 1500px;
+  width: 1670px;
   height: 300px;
   text-align: center;
   font-size: 20px;
@@ -144,6 +318,7 @@
 }
 .displayProducts {
   background-color: #f5f5dc;
+  min-height:700px;
 }
 .signUpForm {
   width: 500px;
@@ -318,7 +493,10 @@
 }
 .addToCart {
   display: flex;
-  gap: 20px;
+  gap: 0px;
+}
+.addToCart button{
+  width:170px;  
 }
 .packedIn {
   display: flex;

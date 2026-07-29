@@ -1,126 +1,179 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useRef, useState } from "react";
 
-function AddProduct() {
-  const { category_id } = useParams();
+function AdminProductPage() {
+  const cameraInputRef = useRef(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
-  const [productName, setProductName] = useState("");
-  const [image, setImage] = useState("");
-  const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("");
+  const handleCameraClick = () => {
+    cameraInputRef.current.click();
+  };
 
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
 
-  if (!category_id || isNaN(Number(category_id))) {
-    setMessage("Invalid category ID");
-    return;
-  }
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!productName || !image || !price) {
-      setMessage("Please fill all required fields");
-      return;
-    }
-
-    setLoading(true);
-    setMessage("");
-
-    try {
-      const response = await fetch(
-        "https://roastery-website-backend.onrender.com",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            product_name: productName,
-            image: image,
-            price_per_kg: parseFloat(price),
-            description,
-            category_id: Number(category_id)
-          }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Something went wrong");
-      }
-
-      setMessage("Product added successfully!");
-
-      setProductName("");
-      setImage("");
-      setPrice("");
-      setDescription("");
-
-    } catch (err) {
-      setMessage(err.message);
-    } finally {
-      setLoading(false);
+    if (file) {
+      const imageURL = URL.createObjectURL(file);
+      setImagePreview(imageURL);
     }
   };
 
   return (
-    <div style={{ padding: "30px", maxWidth: "500px", margin: "auto" }}>
-      <h2>Add New Product</h2>
+    <div style={styles.container}>
+      <div style={styles.card}>
+        <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
+          Add New Product
+        </h2>
 
-      {/* Optional: show category for debugging */}
-      <p style={{ color: "gray" }}>
-        Category ID: {category_id}
-      </p>
+        {/* Camera Button */}
+        <button
+          style={styles.cameraButton}
+          onClick={handleCameraClick}
+        >
+          📸 Take Picture
+        </button>
 
-      <form onSubmit={handleSubmit}>
+        {/* Hidden Camera Input */}
+        <input
+          ref={cameraInputRef}
+          type="file"
+          accept="image/*"
+          capture="environment"
+          style={{ display: "none" }}
+          onChange={handleImageChange}
+        />
+
+        <p style={{ margin: "15px 0", textAlign: "center" }}>or</p>
+
+        {/* Upload Image */}
+        <label style={styles.uploadButton}>
+          Upload Image
+          <input
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={handleImageChange}
+          />
+        </label>
+
+        {/* Image Preview */}
+        {imagePreview && (
+          <img
+            src={imagePreview}
+            alt="Product Preview"
+            style={styles.imagePreview}
+          />
+        )}
+
         <input
           type="text"
           placeholder="Product Name"
-          value={productName}
-          onChange={(e) => setProductName(e.target.value)}
+          style={styles.input}
         />
-        <br /><br />
-
-        <input
-          type="text"
-          placeholder="Image URL"
-          value={image}
-          onChange={(e) => setImage(e.target.value)}
-        />
-        <br /><br />
 
         <input
           type="number"
-          placeholder="Price per kg"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
+          placeholder="Price ($)"
+          style={styles.input}
         />
-        <br /><br />
+
+        <select style={styles.input}>
+          <option>Select Category</option>
+          <option>Nuts</option>
+          <option>Seeds</option>
+          <option>Dried Fruits</option>
+          <option>Spices</option>
+        </select>
 
         <textarea
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <br /><br />
+          placeholder="Product Description"
+          rows="5"
+          style={styles.textarea}
+        ></textarea>
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Adding..." : "Add Product"}
+        <button style={styles.saveButton}>
+          Save Product
         </button>
-      </form>
-
-      {message && (
-        <p style={{
-          marginTop: "20px",
-          color: message.includes("success") ? "green" : "red"
-        }}>
-          {message}
-        </p>
-      )}
+      </div>
     </div>
   );
 }
 
-export default AddProduct;
+const styles = {
+  container: {
+    backgroundColor: "#f4f4f4",
+    minHeight: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "20px",
+  },
+
+  card: {
+    backgroundColor: "#fff",
+    width: "500px",
+    maxWidth: "100%",
+    padding: "30px",
+    borderRadius: "10px",
+    boxShadow: "0 0 10px rgba(0,0,0,0.15)",
+    display: "flex",
+    flexDirection: "column",
+  },
+
+  cameraButton: {
+    padding: "12px",
+    backgroundColor: "#4CAF50",
+    color: "white",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer",
+    fontSize: "16px",
+  },
+
+  uploadButton: {
+    padding: "12px",
+    backgroundColor: "#2196F3",
+    color: "white",
+    borderRadius: "6px",
+    cursor: "pointer",
+    textAlign: "center",
+    marginBottom: "20px",
+  },
+
+  imagePreview: {
+    width: "100%",
+    maxHeight: "300px",
+    objectFit: "cover",
+    borderRadius: "8px",
+    marginBottom: "20px",
+    border: "1px solid #ccc",
+  },
+
+  input: {
+    marginBottom: "15px",
+    padding: "10px",
+    fontSize: "16px",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+  },
+
+  textarea: {
+    padding: "10px",
+    fontSize: "16px",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+    resize: "vertical",
+    marginBottom: "20px",
+  },
+
+  saveButton: {
+    padding: "12px",
+    backgroundColor: "#ff9800",
+    color: "white",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer",
+    fontSize: "16px",
+  },
+};
+
+export default AdminProductPage;

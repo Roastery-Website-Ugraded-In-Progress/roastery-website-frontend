@@ -6,22 +6,21 @@ function SignIn({ isValid2, setIsValid2, setNameOfTheUser2, setEmail2 }) {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const navigate = useNavigate();
-  const handleSignIn = async (e) => {
+  const navigate=useNavigate();
+  const handleSignIn=async(e)=>{
     e.preventDefault();
-    try {
-      const response = await fetch(
-        `https://roastery-website-backend.onrender.com/login`,
+    try{
+      const response=await fetch(`http://localhost:3000/login`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {"Content-Type":"application/json"},
           credentials: "include",
-          body: JSON.stringify({ username: email, password }),
+          body: JSON.stringify({username: email, password}),
         }
       );
-
-      const data = await response.json();
+      const data= await response.json();
       if (response.ok) {
+        console.log("The response is ok");
         setNameOfTheUser2(data.user.nameoftheuser);
         setIsValid2(true);
         console.log("Login successful:", data.message);
@@ -31,10 +30,11 @@ function SignIn({ isValid2, setIsValid2, setNameOfTheUser2, setEmail2 }) {
         console.log("Login failed:", data.message);
         setErrorMessage("Incorrect Username or Password");
       }
-    } catch (error) {
-      console.error("Error during sign in: ", error);
     }
-  };
+    catch(err){
+      console.log("Error logging in, ",err);
+    }
+  }
 
   return (
     <div>
