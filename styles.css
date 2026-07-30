@@ -4,7 +4,8 @@
   height:75px;
   display:flex;
   align-items:center;
-  gap:700px;
+  background-size: cover;
+  width: 100%;
 }
 .Header p{
   color:white;
