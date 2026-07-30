@@ -10,7 +10,6 @@ function Note({ admin, isValid, nameOfTheUser, setIsValid, setNameOfTheUser, ema
       <div style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "1800px 600px",
-        width: "100%",
         height:"600px",
         backgroundRepeat: "no-repeat",
         display:"flex",
