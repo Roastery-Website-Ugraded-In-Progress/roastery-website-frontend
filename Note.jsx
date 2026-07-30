@@ -11,6 +11,7 @@ function Note({ admin, isValid, nameOfTheUser, setIsValid, setNameOfTheUser, ema
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "1800px 600px",
         height:"600px",
+        width: "100%",
         backgroundRepeat: "no-repeat",
         display:"flex",
         flexDirection:"column",
