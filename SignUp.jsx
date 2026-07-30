@@ -22,7 +22,7 @@ function SignUp({ isValid2, setIsValid2, setNameOfTheUser2, setEmail2 }) {
       if(!validEmail || !validPassword)
         return;
       setIsValid2(true);
-      const response=await fetch(`https://roastery-website-backend-2.onrender.com/signUp`,
+      const response=await fetch(`https://roastery-website-upgraded-in-progress.onrender.com/signUp`,
         {
           method: "POST",
           headers: {"Content-Type":"application/json"},
