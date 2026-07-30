@@ -9,7 +9,7 @@ function Note({ admin, isValid, nameOfTheUser, setIsValid, setNameOfTheUser, ema
       <Header isValid={isValid} nameOfTheUser={nameOfTheUser} setIsValid={setIsValid} setNameOfTheUser={setNameOfTheUser} email={email}/>
       <div style={{
         backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: "1800px 600px",
+        backgroundSize: "cover",
         height:"600px",
         width: "100%",
         backgroundRepeat: "no-repeat",
